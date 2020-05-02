@@ -30,7 +30,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:4001/eureka/
+      defaultZone: http://dft-registry-git-unified-control-server.apps.us-west-1.starter.openshift-online.com/eureka/
 
 #keycloak:
 #  auth-server-url: http://localhost:8080/auth
