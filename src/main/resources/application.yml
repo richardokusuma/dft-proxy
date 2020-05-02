@@ -1,0 +1,77 @@
+
+spring:
+  application:
+    name: dft-zuul
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+      file-size-threshold: 2KB
+        
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults:
+        default_schema: api
+      database: postgresql
+      show-sql: true
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test
+    username: postgres
+    password: chilly98
+    platform: postgresql
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:4001/eureka/
+
+#keycloak:
+#  auth-server-url: http://localhost:8080/auth
+#  realm: UCS
+#  resource: ucs-cloak
+#  public-client: true
+#  principal-attribute: preferred_username
+
+zuul:
+  sensitiveHeaders: Cookie,Set-Cookie
+  host:
+    max-total-connections: 1000
+    max-per-route-connections: 100
+  semaphore:
+    max-semaphores: 500
+  routes:
+    delegate-service:
+      path: /delegate/**
+      service-id: delegate-status-service
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 99999999999999
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /admin
+
+ribbon:
+  eager-load:
+    enabled: true
+    
+
+
+server:
+  port: 4002
